@@ -71,6 +71,8 @@ def main():
 	options = get_arguments()
 
 	url = options.url
+	if url[-1] != "/":
+		url = url + "/"
 	user_agent = options.user_agent
 	proxy = options.proxy
 	cookie = options.cookie
