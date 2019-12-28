@@ -1,0 +1,6 @@
+requests
+requests[socks]
+argparse
+re
+urllib.parse
+os
