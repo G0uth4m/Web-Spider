@@ -3,6 +3,7 @@ import argparse
 import re
 import urllib.parse
 import os
+from bs4 import BeautifulSoup
 
 def get_arguments():
 	parser = argparse.ArgumentParser()
@@ -35,7 +36,11 @@ def extract_links(url, user_agent, session, cookie):
 		response = session.get(url, headers={'User-Agent':user_agent, 'Cookie':cookie})
 	else:
 		response = session.get(url, headers={'User-Agent':user_agent})
-	return re.findall('(?:href=)"(.*?)"', response.text)
+		
+	parsed_html = BeautifulSoup(response.text)
+	links = parsed_html.findAll('a')
+	hrefs = [href.get("href") for href in links]
+	return hrefs
 
 def crawl(url, unique_links, user_agent, session, cookie):
 	links = extract_links(url, user_agent, session, cookie)
