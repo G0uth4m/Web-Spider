@@ -4,3 +4,4 @@ argparse
 re
 urllib.parse
 os
+bs4
