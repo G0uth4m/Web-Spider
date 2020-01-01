@@ -38,9 +38,14 @@ def extract_links(url, user_agent, session, cookie):
 		response = session.get(url, headers={'User-Agent':user_agent})
 		
 	parsed_html = BeautifulSoup(response.text)
+	
 	links = parsed_html.findAll('a')
 	hrefs = [href.get("href") for href in links]
-	return hrefs
+	
+	form_actions = parsed_html.findAll('form')
+	form_actions = [form_action.get('action') for form_action in form_actions]
+	
+	return hrefs + form_actions
 
 def crawl(url, unique_links, user_agent, session, cookie):
 	links = extract_links(url, user_agent, session, cookie)
