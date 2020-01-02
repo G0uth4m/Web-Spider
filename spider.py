@@ -54,7 +54,7 @@ def crawl(url, unique_links, user_agent, session, cookie):
 		i = urllib.parse.urljoin(url, i)
 		if '#' in i:
 			i = i.split('#')[0]
-		if url in i and i not in unique_links and "logout" not in i:
+		if urllib.parse.urlparse(url).netloc == urllib.parse.urlparse(i).netloc and i not in unique_links and "logout" not in i:
 			print(i)
 			unique_links.append(i)
 			crawl(i, unique_links, user_agent, session, cookie)
